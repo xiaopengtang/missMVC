@@ -12,4 +12,4 @@
 
 ## 快速建站
 
-[demo](https://github.com/missmvc-demo)
+[demo](https://github.com/xiaopengtang/missmvc-demo)
