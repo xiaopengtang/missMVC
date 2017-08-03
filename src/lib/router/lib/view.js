@@ -1,14 +1,23 @@
 import _ from "lodash"
 import $path from "path"
 import co from "co"
-export const parse = ctrlObject => ($request,$response) => {
+export const parse = (ctrlObject,$app) => ($request,$response) => {
+    // console.log(["this is $request,$response",$request,$response])
     ctrlObject = _.assign(ctrlObject,{$response,$request})
     _.isFunction(ctrlObject.beforeMount) && ctrlObject.beforeMount($request.params)
     co(ctrlObject.render)
     .then(html => {
+        if(!ctrlObject.$rootTemplateUrl&&!ctrlObject.$rootTemplateUrl){
+            throw new Error("can not find $rootTemplateUrl and $rootTemplate")
+        }
+        if(ctrlObject.$rootTemplate){
+            const res = _.isFunction(ctrlObject.$rootTemplate) ? ctrlObject.$rootTemplate({html}):ctrlObject.$rootTemplate
+            return _.isString(res) && $response.end(res)
+        }
+        const tpl = $path.join($app.config("MISS.VIEW_PATH"),$app.config("MISS.layout")||"default",ctrlObject.$rootTemplateUrl)
         const LAYOUT = ctrlObject.layout
         const renderData = _.assign(ctrlObject.$data,{html,LAYOUT})
-        this.$response.render(ctrlObject.$rootTemplate,renderData)
+        $response.render(tpl,renderData)
     })
     .catch(e => {
         throw new Error(e)
@@ -36,6 +45,7 @@ export default function($config,$app){
         let router = {url}
         const ctrlFile = $path.join("modules",path)
         const ctrl = $app.import(ctrlFile)
+        // console.log(['this is ctrl',ctrl,ctrlFile])
         if(!_.isFunction(ctrl)){
             return
         }
@@ -79,7 +89,7 @@ export default function($config,$app){
             return ret.length === 0 ? null : ret
         })($middleware)
 
-        router.ctrl = parse(ctrlObject)
+        router.ctrl = parse(ctrlObject,$app)
         ret.push(router)
     })
     return ret

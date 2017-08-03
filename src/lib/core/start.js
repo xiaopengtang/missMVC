@@ -1,6 +1,6 @@
 import logger,{set} from "../logger"
 import * as utils from "../utils"
-import {router} from "../router"
+import router from "../router"
 import mvc from "../mvc"
 import layout from "../layout"
 import run from "../run"
@@ -33,7 +33,7 @@ export default function(MISS = {}){
         $app.layout = yield layout($app)
         $app.type = "layout"
         use($app)
-        mvc($app)
-        return run($app.app)
-    })
+        const mvc_status = yield mvc($app)
+        return run($app)
+    }).catch(e => console.log(e))
 }

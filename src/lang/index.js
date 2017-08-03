@@ -1,10 +1,10 @@
 let pkg = {}
 
 function lang(name){
-	const read = new Function("name","pkg","return pkg.name")
+	const read = new Function("pkg",`return pkg.${name}`)
 	let ret = ""
 	try{
-		ret = read(name,pkg)
+		ret = read(pkg)
 	}catch(e){}
 	return ret
 }

@@ -2,7 +2,7 @@ import $http from "http"
 
 export default function($app){
     const {app,config} = $app
-    const host = config("MISS.host")
+    const host = config("MISS.host")||{}
     const $debug  =  require('debug')(host.name+':server');
     let port      =  (function(val){
         let port = parseInt(val, 10);

@@ -3,7 +3,9 @@ import express from "express"
 
 export default function($config,$app){
     const {app,lang} = $app
-    _.forEach($app.router , config => {
+    // console.log(["this is $app",$app.router])
+    _.forEach($app.router.view , config => {
+        // console.log(["this is config",config])
         const $router = express.Router()
         config.middleware && config.middleware.forEach(middleware => $router.use(middleware))
         const parse = config.ctrl
@@ -13,7 +15,8 @@ export default function($config,$app){
             next(err)
         }
         const route = $router.route(config.url)
-        const isAll = _.without(config.method,"all").length > 0
+        // console.log(["this is config.method",config.method])
+        const isAll = _.without(config.method||[],"all").length > 0
         if(isAll){
             route.all(parse)
             return app.use($router)

@@ -1,4 +1,5 @@
-export default {
+"use strict"
+module.exports = {
 	"core"  :  {
 		"import_addPth_exists" : "快捷路径的已存在"
 	},

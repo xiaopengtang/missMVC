@@ -7,9 +7,10 @@ import bodyParser from "body-parser"
 import express from "express"
 import ejs from "ejs"
 
-export default function($app){
+export default function* ($app){
     const {app,config} = $app
-    const VIEW_PATH = config("MISS.VIEW_PATH")
+    const VIEW_PATH = config("MISS.VIEW_PATH")||""
+    // console.log(["this is ejs",ejs,ejs.__express])
     app.set("views",VIEW_PATH)
     app.use(logger('dev'))
     app.use(bodyParser.json())
@@ -17,6 +18,6 @@ export default function($app){
     app.use(cookieParser())
     app.set('view engine', 'html')
     app.engine('html', ejs.__express)
-    app.use(express.static(config("MISS.STATIC_PATH")) )
+    app.use(express.static(config("MISS.STATIC_PATH")||"") )
     return ejs
 }

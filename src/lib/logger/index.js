@@ -28,9 +28,9 @@ export default function(){
         }
         $fs.readFile(filePath,"utf-8",(err,d)=>{
             if(!err){
-                data = [data,d].join("\n\r")
+                data = [data,d].join("\r")
             }
-            outputFileSync(filePath,data,{encoding:"utf-8"})
+            outputFileSync(filePath,data+"\r",{encoding:"utf-8"})
         })
     },function(data){
         const title = `[${moment().format("YYYY-MM-DD")}] `

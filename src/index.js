@@ -18,4 +18,4 @@ miss.base = {controller,middleware,server}
 
 global.miss = miss
 
-export default miss
+module.exports = miss
