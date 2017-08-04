@@ -7,6 +7,10 @@
 3、支持vue和react的服务器渲染
 4、单文件的页面开发，增强了独立性
 
-##快速建站
+## 快速建站
 
 [demo](https://github.com/missmvc-demo.git)
+
+## License
+
+MIT
