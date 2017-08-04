@@ -18,14 +18,15 @@ export default function* ($app){
         const PAGE_ERROR = $app.config("MISS.PAGE_ERROR")
         const errorFile = $path.join("modules",PAGE_ERROR)
         const errorCls = $app.import(errorFile)
+
         if(!errorCls){
             const err = new Error(lang("mvc.not_find_err_ctrl"))
             return next(err)
         }
         const errorObject = new errorCls()
-
+        // console.log(["this is errorCls",errorFile,errorCls,errorObject,errorObject.$rootTemplate])
         errorObject.$server = (function(sFile){
-            sFile = sFile ? $path.join("modules",sFile) : $path.join("modules",path,"server")
+            sFile = sFile ? $path.join("modules",sFile) : $path.join("server",PAGE_ERROR)
             const serverFile = $app.import(sFile)
             if(!serverFile){
                 return null
@@ -34,8 +35,9 @@ export default function* ($app){
             serverObject.$store = errorObject.$store
             return serverObject
         })(errorObject.$server)
+        errorObject.$data.$error = $err
         _.isFunction(errorObject.created)&&errorObject.created()
-        return parse()(req,res)
+        return parse(errorObject,$app)(req,res)
 
     })
     //语法报错 from controller

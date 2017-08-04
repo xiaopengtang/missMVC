@@ -16,10 +16,8 @@ function $import(path,relative = "",isFile){
     try{
         ret      =  isFile === true ? $fs.readFileSync(file,"utf-8") : require(file)
     }catch(e){
-        // console.log(["this is err",file,relative,e])
         ret      =  null
     }
-    // console.log(["this is import",file,ret])
     return ret && ret.__esModule && ret.default || ret
 }
 

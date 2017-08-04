@@ -1,6 +1,6 @@
 {
   "name": "missmvc",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "create web",
   "main": "index.js",
   "scripts": {

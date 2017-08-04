@@ -1,5 +1,7 @@
 import _ from "lodash"
-import $path from "path"
+// import $path from "path"
+// import react from "./lib/react"
+import vue from "./lib/vue"
 class controller{
     $engine = "default"
     $data = {}
@@ -19,6 +21,17 @@ class controller{
         data && (this.$data = _.assign(this.$data,data))
         return this.$response.render(templateFile,this.$data,callback)
     }
+    // render(Vnode){
+    //     if(this.$engine === "react"){
+    //         this.$assign("_INSTALL_STATE",JSON.stringify(this.$store.getState()))
+    //         return react(Vnode,this.$store)
+    //     }else if(this.$engine === "vue"){
+    //         this.$assign("_INSTALL_STATE",JSON.stringify(this.$store.state))
+    //         return vue(Vnode,this.$store)
+    //     }else{
+    //         return Vnode
+    //     }
+    // }
 }
 
 export default controller
