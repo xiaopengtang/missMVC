@@ -1,9 +1,13 @@
 # missmvc
 
 ## 说明
-
 > 1、missmvc是在express基础上的一层薄薄的封装，以健壮其模块化的功能
 
+<<<<<<< HEAD
+> 1、missmvc是在express基础上的一层薄薄的封装，以健壮其模块化的功能
+
+=======
+>>>>>>> 2348378012ef548b9e1545fd1939fc72f2cbdac0
 > 2、api开发和view的分层
 
 > 3、支持vue和react的服务器渲染
